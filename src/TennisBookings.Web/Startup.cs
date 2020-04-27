@@ -1,12 +1,13 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace TennisBookings.Web
+﻿namespace TennisBookings.Web
 {
+    using System;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using TennisBookings.Web.Services;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -18,6 +19,7 @@ namespace TennisBookings.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IWeatherForecaster, WeatherForecaster>();
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -36,7 +38,7 @@ namespace TennisBookings.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
+
             app.UseMvc();
         }
     }
