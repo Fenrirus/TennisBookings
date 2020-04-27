@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.DependencyInjection.Extensions;
     using TennisBookings.Web.Configuration;
     using TennisBookings.Web.Services;
 
@@ -22,6 +23,13 @@
         {
             services.AddTransient<IWeatherForecaster, WeatherForecaster>();
 
+            // services.AddSingleton<IWeatherForecaster, WeatherForecaster>();
+            // sprawi, że wywołany zostanie pierwsza wartość, pomimot zarejestrownia dwóch
+            // services.TryAddSingleton<IWeatherForecaster, AmazingWeatherForecaster>();
+            // podmienia wartość
+            // services.Replace(ServiceDescriptor.Singleton<IWeatherForecaster, AmazingWeatherForecaster>());
+            // usuwa wszystkie wartości
+            // services.RemoveAll<IWeatherForecaster>();
             services.Configure<FeaturedConfiguration>(Configuration.GetSection("Features"));
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
